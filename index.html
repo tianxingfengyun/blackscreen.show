@@ -4,19 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Screen - BlackScreen.show</title>
+    <title>Black Screen - Pure Black Full Screen Background | BlackScreen.show</title>
+
+    <meta name="description" content="BlackScreen.show provides a pure black background for monitor testing, display calibration, and OLED screen maintenance. Perfect for checking dead pixels, screen uniformity, and creating distraction-free environments.">
+    <meta name="keywords" content="black screen, black background, monitor test, dead pixel test, screen test, OLED maintenance, display calibration, pure black, blackscreen.show">
+
     <link rel="canonical" href="https://blackscreen.show">
+    <meta name="author" content="BlackScreen.show">
+
+    <meta property="og:title" content="Black Screen - Pure Black Background for Monitor Testing">
+    <meta property="og:description" content="Use our pure black screen to test monitors, check for dead pixels, calibrate displays, or create a distraction-free environment. Simple and effective tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://blackscreen.show">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Black Screen - Pure Black Background for Monitor Testing">
+    <meta name="twitter:description" content="Use our pure black screen to test monitors, check for dead pixels, calibrate displays, or create a distraction-free environment. Simple and effective tool.">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
         body {
+            width: 100%;
+            height: 100%;
+            color: transparent;
+            cursor: pointer;
+            overflow: hidden;
             background: #000;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #hint {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* 防止在移动设备上出现点击延迟 */
+        @media (hover: none) {
+            body {
+                cursor: default;
+            }
         }
     </style>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
-    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-    <script>LA.init({ id: "L1gsU6NePsNzKwT6", ck: "L1gsU6NePsNzKwT6" })</script>
+    <div id="hint">Click anywhere to enter or exit fullscreen</div>
+
+    <script>
+        document.body.addEventListener('click', function () {
+            const docEl = document.documentElement;
+
+            if (!document.fullscreenElement &&
+                !document.webkitFullscreenElement &&
+                !document.mozFullScreenElement) {
+                // Enter fullscreen
+                if (docEl.requestFullscreen) {
+                    docEl.requestFullscreen();
+                } else if (docEl.webkitRequestFullscreen) { // Safari
+                    docEl.webkitRequestFullscreen();
+                } else if (docEl.mozRequestFullScreen) { // Firefox
+                    docEl.mozRequestFullScreen();
+                }
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+            }
+
+            // Fade out and remove hint after first click
+            const hint = document.getElementById('hint');
+            if (hint) {
+                hint.classList.add('hidden');
+                setTimeout(() => {
+                    if (hint.parentNode) hint.remove();
+                }, 300);
+            }
+        });
+
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', e => e.preventDefault());
+    </script>
+
+    <script>
+        !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "L1gsU6NePsNzKwT6", ck: "L1gsU6NePsNzKwT6" });
+    </script>
 </body>
 
 </html>
